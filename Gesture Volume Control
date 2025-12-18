@@ -1,0 +1,57 @@
+import cv2, mediapipe as mp # math
+import math
+
+
+mp_hands = mp.solutions.hands # To detect the hands points
+
+hands = mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.6) # Control the hands detections
+
+draw = mp.solutions.drawing_utils # To draw the points
+
+vid = cv2.VideoCapture(0)
+
+def dist(a,b):
+    return math.hypot(a[0] - b[0], a[1] - b[1])
+
+
+while True:
+    ok , frame = vid.read()
+    if not ok: break
+
+    # height, weight for the frame
+    h, w = frame.shape[:2]
+
+
+    res = hands.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+
+    if res.multi_hand_landmarks:
+
+        lm = res.multi_hand_landmarks[0]
+
+        thumb = (int(lm.lm[4].x * w), int(lm[4].y * h))
+
+        index = (int(lm.lm[8].x * w), int(lm[8].y * h))
+
+        wrist = (int(lm.lm[0].x * w), int(lm[9].y * h))
+
+        distance = dist(thumb, index)
+
+        hand_size = max(1,dist(wrist, thumb))
+
+        norm = distance / hand_size
+
+        if norm < 0.30:
+            action = "PINCH"
+        elif norm < 0.60:
+            action = "HALF OPEN"
+        else:
+            action = "FULLY HANDS IS OPEN"
+
+        print(f"Distance : {distance:.1f}px and Action: {action}")
+
+    cv2.imshow("Hand Detection", frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+vid.release()
+cv2.destroyAllWindows()
