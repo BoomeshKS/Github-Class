@@ -1,0 +1,52 @@
+PY AUTO GUI -> Python Library
+
+OS Independent -> (windows, Mac, Linux)
+
+Gestures Based Control
+
+Volume Mapped 
+[ 0 --> 100 ]
+
+Convert -> Key Actions 
+
+Simulate Key Presses
+####################
+Code :
+
+Opencv, Mediapipe, Pyauto GUI
+
+
+Vol = curr_dist - min-distance / max-distance - min-distance
+
+IN THE CODE
+
+min_dist, max_dist
+
+curr_volume = System
+
+step = increase the step 
+update = or_sys_vol
+
+-->gesture_distance for every frame
+
+
+res = Volume
+
+CONDITION
+
+if target_volume >  current_volume  50 -> 100 -> increase
+
+if target_volume <  current_volume  50 -> 0 -> decrease
+
+if equal -> Do Nothing
+
+EXECUTE THE VOLUME CONTROL USING PYAUTOGUI
+
+-> Volume UP
+-> Volume DOWN
+
+Current_Volume = TARGET_VALUE
+
+----Looped Till The Live Stream is Stop
+
+#########################
